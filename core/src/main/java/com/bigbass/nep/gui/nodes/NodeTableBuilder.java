@@ -23,7 +23,6 @@ import com.bigbass.nep.gui.listeners.HoverListener;
 import com.bigbass.nep.recipes.elements.usual.Fluid;
 import com.bigbass.nep.recipes.elements.Pile;
 import com.bigbass.nep.recipes.processing.Recipe;
-import com.bigbass.nep.skins.SkinManager;
 import com.bigbass.nep.util.Singleton;
 
 public class NodeTableBuilder {
@@ -82,13 +81,13 @@ public class NodeTableBuilder {
 		final Skin rootSkin = root.getSkin();
 		Table nested = new Table(rootSkin);
 		
-		ContainerLabel spacer = new ContainerLabel(SkinManager.getSkin(FONTPATH, 10));
+		ContainerLabel spacer = new ContainerLabel(new Skin());
 		spacer.setBackgroundColor(Color.CLEAR);
 		
-		MoveNodeImage moveNode = new MoveNodeImage(MOVE_TEXTURE, SkinManager.getSkin(FONTPATH, 10), root, node);
+		MoveNodeImage moveNode = new MoveNodeImage(MOVE_TEXTURE, new Skin(), root, node);
 		moveNode.setScaling(Scaling.fill);
 		
-		RemoveNodeImage removeNode = new RemoveNodeImage(REMOVE_TEXTURE, SkinManager.getSkin(FONTPATH, 10), node);
+		RemoveNodeImage removeNode = new RemoveNodeImage(REMOVE_TEXTURE, new Skin(), node);
 		removeNode.setScaling(Scaling.fill);
 		
 		
@@ -112,14 +111,14 @@ public class NodeTableBuilder {
 		Recipe rec = node.getRecipe();
 		
 		// title
-		ContainerLabel title = new ContainerLabel(SkinManager.getSkin(FONTPATH, 10));
+		ContainerLabel title = new ContainerLabel(new Skin());
 		title.label.setText("Crafting Table");
 		title.setBackgroundColor(col); // temporary colors
 		title.setForegroundColor(col);
 		title.minWidth(root.getWidth() * 0.7f);
 		
 		// rate
-		ContainerLabel rate = new ContainerLabel(SkinManager.getSkin(FONTPATH, 10));
+		ContainerLabel rate = new ContainerLabel(new Skin());
 		rate.setBackgroundColor(col); // temporary colors
 		rate.setForegroundColor(col);
 		rate.minWidth(root.getWidth() * 0.3f);
@@ -140,14 +139,14 @@ public class NodeTableBuilder {
 		Recipe rec = node.getRecipe();
 		
 		// output
-		ContainerLabel input = new ContainerLabel(SkinManager.getSkin(FONTPATH, 10));
+		ContainerLabel input = new ContainerLabel(new Skin());
 		input.label.setText("Input:");
 		input.setBackgroundColor(COLOR_INPUT_HEADER);
 		input.setForegroundColor(COLOR_INPUT_HEADER);
 		input.minWidth(root.getWidth() * 0.6f);
 		
 		// cost
-		ContainerLabel cost = new ContainerLabel(SkinManager.getSkin(FONTPATH, 10));
+		ContainerLabel cost = new ContainerLabel(new Skin());
 
 		cost.setBackgroundColor(COLOR_OUTPUT_HEADER);
 		cost.setForegroundColor(COLOR_OUTPUT_HEADER);
@@ -173,14 +172,14 @@ public class NodeTableBuilder {
 				HoverableTable nested = new HoverableTable(rootSkin);
 				
 				// name
-				ContainerLabel name = new ContainerLabel(SkinManager.getSkin(FONTPATH, 10));
+				ContainerLabel name = new ContainerLabel(new Skin());
 				name.label.setText(pile.element.HRName());
 				name.setBackgroundColor(COLOR_INPUTS_BAR);
 				name.setForegroundColor(COLOR_INPUTS_BAR);
 				name.minWidth(root.getWidth() * 0.8f);
 				
 				// qty
-				ContainerLabel qty = new ContainerLabel(SkinManager.getSkin(FONTPATH, 10));
+				ContainerLabel qty = new ContainerLabel(new Skin());
 				String qtyText = String.valueOf(pile.amount);
 				if(pile.element instanceof Fluid){
 					qtyText += "L";
@@ -229,7 +228,7 @@ public class NodeTableBuilder {
 		Recipe rec = node.getRecipe();
 		
 		// output
-		ContainerLabel output = new ContainerLabel(SkinManager.getSkin(FONTPATH, 10));
+		ContainerLabel output = new ContainerLabel(new Skin());
 		output.label.setText("Output:");
 		output.setBackgroundColor(COLOR_OUTPUT_HEADER);
 		output.setForegroundColor(COLOR_OUTPUT_HEADER);
@@ -237,7 +236,7 @@ public class NodeTableBuilder {
 		
 
 		// ticks
-		ContainerLabel ticks = new ContainerLabel(SkinManager.getSkin(FONTPATH, 10));
+		ContainerLabel ticks = new ContainerLabel(new Skin());
 		ticks.setBackgroundColor(COLOR_INPUT_HEADER);
 		ticks.setForegroundColor(COLOR_INPUT_HEADER);
 		ticks.minWidth(root.getWidth() * 0.4f);
@@ -261,14 +260,14 @@ public class NodeTableBuilder {
 				HoverableTable nested = new HoverableTable(rootSkin);
 				
 				// name
-				ContainerLabel name = new ContainerLabel(SkinManager.getSkin(FONTPATH, 10));
+				ContainerLabel name = new ContainerLabel(new Skin());
 				name.label.setText(pile.element.HRName());
 				name.setBackgroundColor(COLOR_OUTPUTS_BAR);
 				name.setForegroundColor(COLOR_OUTPUTS_BAR);
 				name.minWidth(root.getWidth() * 0.8f);
 				
 				// qty
-				ContainerLabel qty = new ContainerLabel(SkinManager.getSkin(FONTPATH, 10));
+				ContainerLabel qty = new ContainerLabel(new Skin());
 				String qtyText = String.valueOf(pile.amount);
 				if(pile.element instanceof Fluid){
 					qtyText += "L";
