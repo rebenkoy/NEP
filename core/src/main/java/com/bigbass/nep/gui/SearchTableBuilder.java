@@ -27,7 +27,6 @@ import com.bigbass.nep.gui.actors.CustomContainer;
 import com.bigbass.nep.gui.actors.CustomScrollPane;
 import com.bigbass.nep.gui.borders.BorderedTable;
 import com.bigbass.nep.gui.listeners.HoverListener;
-import com.bigbass.nep.skins.SkinManager;
 
 public class SearchTableBuilder {
 
@@ -122,7 +121,7 @@ public class SearchTableBuilder {
 		final Skin rootSkin = root.getSkin();
 		Table nested = new Table(rootSkin);
 		
-		ContainerLabel headerText = new ContainerLabel(SkinManager.getSkin(FONTPATH, 14));
+		ContainerLabel headerText = new ContainerLabel(new Skin());
 		headerText.label.setText("Filters");
 		headerText.label.setAlignment(Align.center);
 		headerText.setBackgroundColor(COLOR_FILTER_HEADER);
@@ -140,13 +139,13 @@ public class SearchTableBuilder {
 		final Skin rootSkin = root.getSkin();
 		Table nested = new Table(rootSkin);
 		
-		ContainerLabel searchText = new ContainerLabel(SkinManager.getSkin(FONTPATH, 12));
+		ContainerLabel searchText = new ContainerLabel(new Skin());
 		searchText.label.setText("Ingredient Name:");
 		searchText.setBackgroundColor(COLOR_TEXT_SEARCH);
 		searchText.setForegroundColor(COLOR_TEXT_SEARCH);
 		searchText.minWidth(root.getWidth() * 0.4f);
 		
-		searchName = new ContainerTextField(SkinManager.getSkin(FONTPATH, 12));
+		searchName = new ContainerTextField(new Skin());
 		searchName.minWidth(root.getWidth() * 0.6f);
 		searchName.height(searchText.getPrefHeight());
 		searchName.addListener(new InputListener(){
@@ -170,7 +169,7 @@ public class SearchTableBuilder {
 		final Skin rootSkin = root.getSkin();
 		Table nested = new Table(rootSkin);
 		
-		ContainerLabel sourceText = new ContainerLabel(SkinManager.getSkin(FONTPATH, 12));
+		ContainerLabel sourceText = new ContainerLabel(new Skin());
 		sourceText.label.setText("Input, Output, or both:");
 		sourceText.setBackgroundColor(COLOR_IO_SEARCH);
 		sourceText.setForegroundColor(COLOR_IO_SEARCH);
@@ -181,7 +180,7 @@ public class SearchTableBuilder {
 		for(String boxLabel : boxLabels){
 			ioCheckboxes.row();
 			
-			ContainerCheckBox box = new ContainerCheckBox(SkinManager.getSkin(FONTPATH, 12));
+			ContainerCheckBox box = new ContainerCheckBox(new Skin());
 			box.box.setText(boxLabel);
 			box.minWidth(root.getWidth() * 0.6f);
 			box.box.setChecked(true);
@@ -214,7 +213,7 @@ public class SearchTableBuilder {
 		final Skin rootSkin = root.getSkin();
 		Table nested = new Table(rootSkin);
 		
-		ContainerLabel sourceText = new ContainerLabel(SkinManager.getSkin(FONTPATH, 12));
+		ContainerLabel sourceText = new ContainerLabel(new Skin());
 		sourceText.label.setText("Source:");
 		sourceText.setBackgroundColor(COLOR_SOURCE_SEARCH);
 		sourceText.setForegroundColor(COLOR_SOURCE_SEARCH);
@@ -224,7 +223,7 @@ public class SearchTableBuilder {
 		checkboxes = new Table(rootSkin);
 		for(String source : rm.recipeSources.keySet()){
 			checkboxes.row();
-			ContainerCheckBox box = new ContainerCheckBox(SkinManager.getSkin(FONTPATH, 12));
+			ContainerCheckBox box = new ContainerCheckBox(new Skin());
 			box.box.setText(source);
 			box.minWidth(root.getWidth() * 0.6f);
 			box.box.setChecked(true);
@@ -257,13 +256,13 @@ public class SearchTableBuilder {
 		final Skin rootSkin = root.getSkin();
 		Table nested = new Table(rootSkin);
 		
-		ContainerLabel searchText = new ContainerLabel(SkinManager.getSkin(FONTPATH, 12));
+		ContainerLabel searchText = new ContainerLabel(new Skin());
 		searchText.label.setText("Process Type:");
 		searchText.setBackgroundColor(COLOR_MACHINE_SEARCH);
 		searchText.setForegroundColor(COLOR_MACHINE_SEARCH);
 		searchText.minWidth(root.getWidth() * 0.4f);
 		
-		searchProcessType = new ContainerTextField(SkinManager.getSkin(FONTPATH, 12));
+		searchProcessType = new ContainerTextField(new Skin());
 		searchProcessType.minWidth(root.getWidth() * 0.6f);
 		searchProcessType.height(searchText.getPrefHeight() - 1);
 		searchProcessType.addListener(new InputListener(){
@@ -290,7 +289,7 @@ public class SearchTableBuilder {
 		final Skin rootSkin = root.getSkin();
 		Table nested = new Table(rootSkin);
 		
-		ContainerLabel catText = new ContainerLabel(SkinManager.getSkin(FONTPATH, 14));
+		ContainerLabel catText = new ContainerLabel(new Skin());
 		catText.label.setText("Process Type List");
 		catText.label.setAlignment(Align.center);
 		catText.setBackgroundColor(Color.GOLD);
@@ -298,9 +297,9 @@ public class SearchTableBuilder {
 		catText.minWidth(root.getWidth());
 		
 		
-		categories = new List<String>(SkinManager.getSkin(FONTPATH, 12));
+		categories = new List<String>(new Skin());
 		
-		scrollPane = new CustomScrollPane(categories, SkinManager.getSkin(FONTPATH, 12)){
+		scrollPane = new CustomScrollPane(categories, new Skin()){
 			
 			@Override
 			public float getMouseWheelY () {
@@ -349,13 +348,13 @@ public class SearchTableBuilder {
 		final Skin rootSkin = root.getSkin();
 		Table nested = new Table(rootSkin);
 		
-		nodeViewText = new ContainerLabel(SkinManager.getSkin(FONTPATH, 11));
+		nodeViewText = new ContainerLabel(new Skin());
 		nodeViewText.label.setText("Node Preview");
 		nodeViewText.label.setAlignment(Align.center);
 		nodeViewText.setBackgroundColor(Color.GOLDENROD);
 		nodeViewText.setForegroundColor(Color.GOLDENROD);
 		
-		IndexChangeImage downIndex = new IndexChangeImage(DOWN_ARROW_TEXTURE, SkinManager.getSkin(FONTPATH, 10), new ClickListener(){
+		IndexChangeImage downIndex = new IndexChangeImage(DOWN_ARROW_TEXTURE, new Skin(), new ClickListener(){
 				@Override
 				public void clicked(InputEvent event, float x, float y){
 					nodeIndexChange = -1;
@@ -364,7 +363,7 @@ public class SearchTableBuilder {
 			});
 		downIndex.setScaling(Scaling.fill);
 
-		IndexChangeImage upIndex = new IndexChangeImage(UP_ARROW_TEXTURE, SkinManager.getSkin(FONTPATH, 10), new ClickListener(){
+		IndexChangeImage upIndex = new IndexChangeImage(UP_ARROW_TEXTURE, new Skin(), new ClickListener(){
 				@Override
 				public void clicked(InputEvent event, float x, float y){
 					nodeIndexChange = 1;
@@ -385,7 +384,7 @@ public class SearchTableBuilder {
 	private void nodeViewRow(Table root){
 		root.row();
 		
-		currentNodeTable = new BorderedTable(SkinManager.getSkin(FONTPATH, 10));
+		currentNodeTable = new BorderedTable(new Skin());
 		currentNodeTable.addListener(new InputListener(){
 			//not sure why this is here lol, keep it as a reminder
 		});
@@ -396,7 +395,7 @@ public class SearchTableBuilder {
 	private void addNodeRow(Table root){
 		root.row();
 		
-		ContainerLabel addNodeButton = new ContainerLabel(SkinManager.getSkin(FONTPATH, 14), true);
+		ContainerLabel addNodeButton = new ContainerLabel(new Skin(), true);
 		addNodeButton.label.setText("Add Node!");
 		addNodeButton.label.setAlignment(Align.center);
 		addNodeButton.setBackgroundColor(COLOR_ADD_NODE);

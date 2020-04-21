@@ -9,7 +9,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.bigbass.nep.Globals;
 import com.bigbass.nep.gui.SearchTableBuilder.ContainerCheckBox;
 import com.bigbass.nep.gui.nodes.Node;
 import com.bigbass.nep.gui.nodes.NodeManager;
@@ -17,6 +16,7 @@ import com.bigbass.nep.gui.nodes.NodeTableBuilder;
 import com.bigbass.nep.recipes.RecipeManager;
 import com.bigbass.nep.recipes.elements.AElement;
 import com.bigbass.nep.recipes.processing.Recipe;
+
 
 public class SearchPane {
 
@@ -30,6 +30,7 @@ public class SearchPane {
 
 	private Hashtable<String, List<Recipe>> filteredRecipes;
 	private int currentNodeIndex;
+
 
 	public SearchPane(Stage stage, NodeManager nodeManager){
 		this.stage = stage;
@@ -128,14 +129,7 @@ public class SearchPane {
 
 			Node node = null;
 			if(selectedRecipes.size() > 0){
-				float x = 0;
-				float y = 0;
-				if(Globals.primaryCamera != null){
-					x = Globals.primaryCamera.position.x;
-					y = Globals.primaryCamera.position.y;
-				}
-
-				node = new Node(x, y, selectedRecipes.get(currentNodeIndex));
+				node = new Node(0, 0, selectedRecipes.get(currentNodeIndex));
 			}
 
 			if(node != null){

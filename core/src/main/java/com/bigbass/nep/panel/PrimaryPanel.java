@@ -3,6 +3,7 @@ package com.bigbass.nep.panel;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -10,10 +11,10 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.bigbass.nep.Globals;
 import com.bigbass.nep.Main;
 import com.bigbass.nep.gui.listeners.ScrollwheelInputAdapter;
 import com.bigbass.nep.gui.nodes.NodeManager;
@@ -27,8 +28,6 @@ import com.bigbass.nep.recipes.elements.usual.Fluid;
 import com.bigbass.nep.recipes.elements.usual.Item;
 import com.bigbass.nep.util.KeyBinding;
 import com.bigbass.nep.recipes.RecipeManager;
-import com.bigbass.nep.recipes.RecipeManager.RecipeError;
-import com.bigbass.nep.skins.SkinManager;
 import com.bigbass.nep.util.Singleton;
 
 public class PrimaryPanel extends Panel {
@@ -61,6 +60,8 @@ public class PrimaryPanel extends Panel {
 	private KeyBindingManager keyBindings;
 	private KeyBindingPane keyBindingPane;
 
+	private Camera primaryCamera;
+
 	public PrimaryPanel() {
 		super();
 
@@ -77,7 +78,7 @@ public class PrimaryPanel extends Panel {
 		cam.position.set(0, 0, 0);
 		cam.update();
 
-		Globals.primaryCamera = cam;
+		this.primaryCamera = cam;
 
 		worldView = new ScreenViewport(cam);
 		hudView = new ScreenViewport();
@@ -85,7 +86,7 @@ public class PrimaryPanel extends Panel {
 		worldStage = new Stage(worldView);
 
 		hudStage = new Stage(hudView);
-		infoLabel = new Label("", SkinManager.getSkin("fonts/droid-sans-mono.ttf", 10));
+		infoLabel = new Label("", new Skin());
 		infoLabel.setColor(Color.MAGENTA);
 		hudStage.addActor(infoLabel);
 
@@ -127,7 +128,7 @@ public class PrimaryPanel extends Panel {
 
 		this.initializeKeyBindings();
 
-		helpLabel = new Label("", SkinManager.getSkin("fonts/droid-sans-mono.ttf", 12));
+		helpLabel = new Label("", new Skin());
 		helpLabel.setAlignment(Align.bottom);
 		helpLabel.setColor(Color.BLACK);
 		hudStage.addActor(helpLabel);
