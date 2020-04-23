@@ -21,7 +21,6 @@ import com.bigbass.nep.gui.PathManager;
 import com.bigbass.nep.gui.SearchPane;
 import com.bigbass.nep.gui.KeyBindingPane;
 import com.bigbass.nep.gui.KeyBindingManager;
-import com.bigbass.nep.recipes.RecipeDownloader;
 import com.bigbass.nep.recipes.delivery.*;
 import com.bigbass.nep.recipes.elements.AElement;
 import com.bigbass.nep.recipes.elements.UndefinedElement;
@@ -29,7 +28,6 @@ import com.bigbass.nep.recipes.elements.usual.Fluid;
 import com.bigbass.nep.recipes.elements.usual.Item;
 import com.bigbass.nep.util.KeyBinding;
 import com.bigbass.nep.recipes.RecipeManager;
-import com.bigbass.nep.recipes.RecipeManager.RecipeError;
 import com.bigbass.nep.skins.SkinManager;
 import com.bigbass.nep.util.Singleton;
 

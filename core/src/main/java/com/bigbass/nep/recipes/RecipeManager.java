@@ -14,7 +14,6 @@ import javax.json.*;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
-import com.bigbass.nep.recipes.RecipeDownloader.DownloadResponse;
 import com.bigbass.nep.recipes.delivery.Importer;
 import com.bigbass.nep.recipes.delivery.PeerConfig;
 import com.bigbass.nep.recipes.elements.AElement;
