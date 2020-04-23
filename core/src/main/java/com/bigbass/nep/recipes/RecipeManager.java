@@ -14,7 +14,8 @@ import javax.json.*;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
-import com.bigbass.nep.recipes.RecipeDownloader.DownloadResponse;
+import com.bigbass.nep.recipes.delivery.Importer;
+import com.bigbass.nep.recipes.delivery.PeerConfig;
 import com.bigbass.nep.recipes.elements.AElement;
 import com.bigbass.nep.recipes.processing.Recipe;
 
@@ -49,72 +50,7 @@ public class RecipeManager {
 		
 		return instance;
 	}
-	
-	/**
-	 * <p>Calls {@link #loadRecipes(String, boolean)} by passing {@code false}.</p>
-	 * 
-	 * @param version recipe version to be loaded
-	 * @return
-	 */
-	public RecipeError loadRecipes(String version){
-		try {
-			return loadRecipes(version, false);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
 
-	/**
-	 * <p>Calls {@link #loadRecipes(String, boolean)} by passing {@code false}.</p>
-	 *
-	 * @param version recipe version to be loaded
-	 * @return
-	 */
-	public Thread loadRecipesAsync(String version){
-		return loadRecipesAsync(version, (RecipeError err) -> {return null;}, () -> {return null;});
-	}
-
-	/**
-	 * <p>Calls {@link #loadRecipes(String, boolean)} by passing {@code false}.</p>
-	 *
-	 * @param version recipe version to be loaded
-	 * @param errorHandler handler for loader errors
-	 * @return
-	 */
-	public Thread loadRecipesAsync(String version, Function<RecipeError, Void> errorHandler){
-		return loadRecipesAsync(version, errorHandler, () -> {return null;});
-	}
-
-	/**
-	 * <p>Calls {@link #loadRecipes(String, boolean)} by passing {@code false}.</p>
-	 *
-	 * @param version recipe version to be loaded
-	 * @param errorHandler handler for loading errors
-	 * @param callback function to call after load is complete
-	 * @return
-	 */
-	public Thread loadRecipesAsync(String version, Function<RecipeError, Void> errorHandler, Callable<Void> callback){
-		Thread loaderThread = new Thread() {
-			public void run() {
-				errorHandler.apply(loadRecipes(version));
-				try {
-					callback.call();
-				} catch (Exception e) {
-					System.out.println(
-							String.format(
-									"got exception in async recipes loader:\n%s",
-									e
-							)
-					);
-				}
-				return;
-			}
-		};
-		loaderThread.start();
-		return loaderThread;
-	}
-	
 	/**
 	 * <p>Flushes any currently loaded recipes and attempts to load the specified version.</p>
 	 * 
@@ -125,26 +61,9 @@ public class RecipeManager {
 	 * @param localOnly true if this version is only found locally
 	 * @return
 	 */
-	public RecipeError loadRecipes(String version, boolean localOnly) throws FileNotFoundException {
-		version = version.trim().replace(".json", "");
+	public RecipeError loadRecipes(PeerConfig config) throws FileNotFoundException {
+		final FileHandle handle = Gdx.files.local(Importer.getRoot() + config.alias + '/');
 
-		if(version == null || version.isEmpty()){
-			return new RecipeError("emptyVersion", "The version provided was either null or empty.");
-		}
-
-		final FileHandle handle = Gdx.files.local("cache/" + version);
-
-		if(!handle.exists()) {
-			if(!localOnly) {
-				final RecipeDownloader rd = new RecipeDownloader();
-				final DownloadResponse res = rd.downloadRecipeFile(version);
-				if(res != DownloadResponse.OK) {
-					return new RecipeError("versionNotFound", "Either the version provided does not exist remotely, or the download and/or checksum failed. " + res);
-				}
-			} else {
-				return new RecipeError("versionNotFound", "The version provided was not found locally.");
-			}
-		}
 		JsonReader mendeleyReader = Json.createReader(new FileReader(handle.file().getPath() + "/mendeley.json"));
 		for (JsonValue rawElem : mendeleyReader.readArray()) {
 			AElement.fromJson(rawElem.asJsonObject());
