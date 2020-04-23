@@ -8,13 +8,13 @@ import javax.json.JsonObjectBuilder;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.bigbass.nep.gui.Path;
 import com.bigbass.nep.gui.borders.BorderedTable;
 import com.bigbass.nep.recipes.RecipeManager;
 import com.bigbass.nep.recipes.elements.Pile;
 import com.bigbass.nep.recipes.processing.Recipe;
+import com.bigbass.nep.skins.SkinManager;
 
 /**
  * Represents a production node, most commonly a machine or a crafting table, with a particular recipe.
@@ -112,7 +112,7 @@ public class Node {
 		this.outputs = new HashMap<>();
 		this.inputTables = new HashMap<>();
 		this.outputTables = new HashMap<>();
-		this.table = new BorderedTable(new Skin()); // font doesn't really matter here, but skin necessary for other stuff
+		this.table = new BorderedTable(SkinManager.getSkin("fonts/droid-sans-mono.ttf", 10)); // font doesn't really matter here, but skin necessary for other stuff
 		this.refreshRecipe(RecipeManager.getInst());
 	}
 
@@ -129,7 +129,7 @@ public class Node {
 		this.uuid = UUID.randomUUID();
 		pos = new Vector2(x, y);
 		
-		table = new BorderedTable(new Skin()); // font doesn't really matter here, but skin necessary for other stuff
+		table = new BorderedTable(SkinManager.getSkin("fonts/droid-sans-mono.ttf", 10)); // font doesn't really matter here, but skin necessary for other stuff
 		
 		this.override = override;
 		
