@@ -44,7 +44,7 @@ public class RecipeDownloader {
 		if(zipRes == DownloadResponse.OK){
 			final FileHandle handleZip = Gdx.files.local(CACHE_PATH + zipName);
 			final FileHandle jsonDestination = Gdx.files.local(CACHE_PATH);
-			
+
 			ZipFile zipFile = new ZipFile(handleZip.file());
 			try {
 				zipFile.extractFile(jsonName, jsonDestination.file().getPath());
@@ -198,9 +198,9 @@ public class RecipeDownloader {
 			}
 		}
 
-		// if zip download and decompression worked, this call will not download the json file, but will verify checksum
+//		 if zip download and decompression worked, this call will not download the json file, but will verify checksum
 		DownloadResponse jsonRes = downloadFilePair(jsonName);
-		return jsonRes;
+		return zipRes;
 	}
 
 	private void populateRecipeIO(Map<String, Pile> collection, JsonValue i, boolean isItem) {

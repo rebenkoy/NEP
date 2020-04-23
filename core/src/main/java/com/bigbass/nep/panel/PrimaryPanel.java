@@ -21,6 +21,8 @@ import com.bigbass.nep.gui.PathManager;
 import com.bigbass.nep.gui.SearchPane;
 import com.bigbass.nep.gui.KeyBindingPane;
 import com.bigbass.nep.gui.KeyBindingManager;
+import com.bigbass.nep.recipes.RecipeDownloader;
+import com.bigbass.nep.recipes.delivery.*;
 import com.bigbass.nep.recipes.elements.AElement;
 import com.bigbass.nep.recipes.elements.UndefinedElement;
 import com.bigbass.nep.recipes.elements.usual.Fluid;
@@ -30,6 +32,8 @@ import com.bigbass.nep.recipes.RecipeManager;
 import com.bigbass.nep.recipes.RecipeManager.RecipeError;
 import com.bigbass.nep.skins.SkinManager;
 import com.bigbass.nep.util.Singleton;
+
+import java.io.FileNotFoundException;
 
 public class PrimaryPanel extends Panel {
 
@@ -67,11 +71,14 @@ public class PrimaryPanel extends Panel {
 		AElement.registerElementType(UndefinedElement.type, UndefinedElement.class);
 		AElement.registerElementType(Item.type, Item.class);
 		AElement.registerElementType(Fluid.type, Fluid.class);
-
 		System.out.println("Loading recipes...");
-		RecipeManager.getInst().loadRecipes(
-				"v2.0.8.4-x0.0.3"
-		);
+		PeerConfig cfg = new PeerConfig("bigbass", "https://libgdxjam.com/recex/v2.0.8.4-x0.0.3.zip", "https://libgdxjam.com/recex/v2.0.8.4-x0.0.3.zip.md5", "zip", "recex");
+		BackingUpCache.chain(cfg);
+		try {
+			RecipeManager.getInst().loadRecipes(cfg);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 
 		cam = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		cam.position.set(0, 0, 0);
