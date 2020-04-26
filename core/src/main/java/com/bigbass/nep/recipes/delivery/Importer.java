@@ -16,6 +16,12 @@ import java.util.Map;
 
 public class Importer {
     private static class RecExKernel {
+        private static Map<String, String> nameMapping = new HashMap<>();
+        static {
+            nameMapping.put("shaped", "Shaped Crafting");
+            nameMapping.put("shapeless", "Shapeless Crafting");
+        }
+
         static private void populateRecipeIO(Map<String, Pile> collection, JsonValue i, boolean isItem) {
             if (i == JsonValue.NULL) {
                 return;
@@ -59,11 +65,11 @@ public class Importer {
                     JsonObject source = src.asJsonObject();
 
                     final String type = source.getJsonString("type").getString();
-                    final String typeFolder = hrFolder + type + "/";
-                    final FileHandle typeFolderHandler = Gdx.files.local(typeFolder);
-                    typeFolderHandler.mkdirs();
 
                     if (type.equalsIgnoreCase("gregtech")) {
+                        final String typeFolder = hrFolder + type + "/";
+                        final FileHandle typeFolderHandler = Gdx.files.local(typeFolder);
+                        typeFolderHandler.mkdirs();
                         for (JsonValue mch : source.getJsonArray("machines")) {
                             JsonObject machine = mch.asJsonObject();
                             String name = machine.getString("n").trim();
@@ -117,6 +123,8 @@ public class Importer {
                             }
                         }
                     } else if (!type.equals("shapedOreDict")) {
+                        final String typeFileName = hrFolder + RecExKernel.nameMapping.get(type) + ".json";
+                        final FileHandle typeFileHandle = Gdx.files.local(typeFileName);
                         JsonArrayBuilder list = Json.createArrayBuilder();
                         try {
                             for (JsonValue rv : source.getJsonArray("recipes")) {
@@ -162,7 +170,7 @@ public class Importer {
                                 list.add(recipe.toJson());
                             }
 
-                            FileWriter writer = new FileWriter(typeFolder + "recipes.json");
+                            FileWriter writer = new FileWriter(typeFileHandle.file().getPath());
                             writer.write(UJSON.prettyPrint(list.build()));
                             writer.close();
                         } catch (IOException e) {
