@@ -21,7 +21,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.bigbass.nep.gui.Path;
 import com.bigbass.nep.gui.PathManager;
-import com.bigbass.nep.recipes.RecipeManager;
 
 import space.earlygrey.shapedrawer.ShapeDrawer;
 
@@ -122,7 +121,6 @@ public class NodeManager {
 			return;
 		}
 		
-		final RecipeManager rm = RecipeManager.getInst();
 		for(JsonObject jsonNode : arr.getValuesAs(JsonObject.class)){
 			addNode(Node.fromJson(jsonNode));
 		}
