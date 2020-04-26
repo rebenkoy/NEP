@@ -14,7 +14,6 @@ import com.bigbass.nep.gui.SearchTableBuilder.ContainerCheckBox;
 import com.bigbass.nep.gui.nodes.Node;
 import com.bigbass.nep.gui.nodes.NodeManager;
 import com.bigbass.nep.gui.nodes.NodeTableBuilder;
-import com.bigbass.nep.recipes.RecipeManager;
 import com.bigbass.nep.recipes.elements.AElement;
 import com.bigbass.nep.recipes.processing.Recipe;
 
@@ -53,12 +52,6 @@ public class SearchPane {
 
 	public void refreshRecipes(){
 		if(builder.dirtyFilters){
-			final RecipeManager rm = RecipeManager.getInst();
-
-			final Hashtable<String, List<Recipe>> allRecipes = rm.recipes;
-			filteredRecipes.clear();
-			filteredRecipes.putAll(allRecipes);
-
 			// Determine IO filter
 			Recipe.IO io = new Recipe.IO(); // remains BOTH if both the checkboxes have the same value
 			ContainerCheckBox input = null;
@@ -123,7 +116,7 @@ public class SearchPane {
 			builder.dirtyFilters = false;
 		}
 
-		if(builder.addNode){
+		if(builder.addNode) {  // TODO (rebenkoy): NullPointer if empty.
 			List<Recipe> selectedRecipes = filteredRecipes.get(builder.categories.getSelected());
 
 			Node node = null;
