@@ -21,7 +21,7 @@ public class Loader {
     private static void load(Path path) {
         try {
             JsonReader reader = Json.createReader(new FileReader(path.toString()));
-            String group = path.getFileName().toString();
+            String group = path.getFileName().toString().replace(".json", "");
             for (JsonValue val : reader.readArray()) {
                 Recipe.fromJson(val.asJsonObject(), group);
             }
