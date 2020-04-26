@@ -36,7 +36,11 @@ public class Recipe {
         return instance;
     }
 
-    public JsonObject toJson() {
+    public static Recipe fromJson(JsonObject json) {
+        return Recipe.fromJson(json, json.getString("g"));
+    }
+
+    private JsonObjectBuilder jsonBuilder() {
         JsonObjectBuilder builder = Json.createObjectBuilder();
         JsonArrayBuilder inputs = Json.createArrayBuilder();
         for (Pile p : this.inputs) {
@@ -50,6 +54,18 @@ public class Recipe {
         builder.add("i", inputs.build());
         builder.add("o", outputs.build());
         builder.add("d", this.duration);
+        return builder;
+    }
+
+    public JsonObject toJson() {
+        return this.jsonBuilder().build();
+    }
+
+    public JsonObject toJson(boolean includeGroup) {
+        JsonObjectBuilder builder = this.jsonBuilder();
+        if (includeGroup) {
+            builder.add("g",  this.group);
+        }
         return builder.build();
     }
 }

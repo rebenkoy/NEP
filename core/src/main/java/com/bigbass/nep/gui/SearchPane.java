@@ -116,7 +116,7 @@ public class SearchPane {
 			builder.dirtyFilters = false;
 		}
 
-		if(builder.addNode){
+		if(builder.addNode) {  // TODO (rebenkoy): NullPointer if empty.
 			List<Recipe> selectedRecipes = filteredRecipes.get(builder.categories.getSelected());
 
 			Node node = null;
